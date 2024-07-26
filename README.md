@@ -36,16 +36,15 @@ grafana:
           path: /var/lib/grafana/dashboards/grafana-mimir-cardinality-dashboards
   dashboards:
     grafana-mimir-cardinality-dashboards:
-      dashboard:
-        cardinality-management-1-overview:
-          url: https://raw.githubusercontent.com/davhdavh/grafana-mimir-cardinality-dashboards/main/dashboards/cardinality-management-1-overview.json
-          token: ''
-        cardinality-management-2-metrics:
-          url: https://raw.githubusercontent.com/davhdavh/grafana-mimir-cardinality-dashboards/main/dashboards/cardinality-management-2-metrics.json
-          token: ''
-        cardinality-management-3-labels:
-          url: https://raw.githubusercontent.com/davhdavh/grafana-mimir-cardinality-dashboards/main/dashboards/cardinality-management-3-labels.json
-          token: ''
+      cardinality-management-1-overview:
+        url: https://raw.githubusercontent.com/davhdavh/grafana-mimir-cardinality-dashboards/main/dashboards/cardinality-management-1-overview.json
+        token: ''
+      cardinality-management-2-metrics:
+        url: https://raw.githubusercontent.com/davhdavh/grafana-mimir-cardinality-dashboards/main/dashboards/cardinality-management-2-metrics.json
+        token: ''
+      cardinality-management-3-labels:
+        url: https://raw.githubusercontent.com/davhdavh/grafana-mimir-cardinality-dashboards/main/dashboards/cardinality-management-3-labels.json
+        token: ''
   plugins:
   - yesoreyeram-infinity-datasource
   - marcusolsson-treemap-panel
