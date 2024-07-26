@@ -28,7 +28,7 @@ grafana:
       providers:
       - name: 'grafana-mimir-cardinality-dashboards'
         orgId: 1
-        folder: 'Kubernetes'
+        folder: 'Cardinality'
         type: file
         disableDeletion: true
         editable: false
