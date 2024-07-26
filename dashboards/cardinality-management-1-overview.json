@@ -1,14 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS",
-      "label": "monit_prom_lts_cardinality_analysis",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "yesoreyeram-infinity-datasource",
-      "pluginName": "JSON API"
-    }
-  ],
   "__elements": [],
   "__requires": [
     {
@@ -100,7 +90,7 @@
     {
       "datasource": {
         "type": "yesoreyeram-infinity-datasource",
-        "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+        "uid": "${datasource}"
       },
       "description": "The total number of metrics in the selected data source. Prometheus uses the reserved label \"\\_\\_name\\_\\_\" to store a metric’s name. This means that the total metric count is equivalent to the number of values associated with the label key \"\\_\\_name\\_\\_.\"”",
       "fieldConfig": {
@@ -144,7 +134,7 @@
         {
           "datasource": {
             "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+            "uid": "${datasource}"
           },
           "refId": "A",
           "type": "json",
@@ -209,7 +199,7 @@
     {
       "datasource": {
         "type": "yesoreyeram-infinity-datasource",
-        "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+        "uid": "${datasource}"
       },
       "description": "Labels are key<>value pairs. “Total label names” is the count of unique label keys in the selected data source. For example, if your system had “key1=valueA”, “key1=valueB”, “key2=valueC,” “key3=valueD”, you would have 3 label names in your system: “key1”, “key2,” and “key3.”",
       "fieldConfig": {
@@ -236,7 +226,7 @@
                 "value": [
                   {
                     "title": "View detailed cardinality dashboard for metric: ${__data.fields.Metric}",
-                    "url": "d/cardinality-management-metrics-detail/?var-metric=${__data.fields.Metric}&${datasource:queryparam}&${filter:queryparam}"
+                    "url": "d/cardinality-management-metrics-detail/?var-metric=${__data.fields.Metric}&${datasource:queryparam}&${tenant:queryparam}&${filter:queryparam}"
                   }
                 ]
               }
@@ -271,7 +261,7 @@
         {
           "datasource": {
             "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+            "uid": "${datasource}"
           },
           "refId": "A",
           "type": "json",
@@ -307,7 +297,7 @@
     {
       "datasource": {
         "type": "yesoreyeram-infinity-datasource",
-        "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+        "uid": "${datasource}"
       },
       "description": "The total number of active time series in the selected data source. A time series is a unique combination of a metric name and key-value label pairs. For example, “events_total{env=dev}” and “events_total{env=prod}” are two distinct time series, both of which belong to the same parent metric, “events_total.”",
       "fieldConfig": {
@@ -351,7 +341,7 @@
         {
           "datasource": {
             "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+            "uid": "${datasource}"
           },
           "refId": "A",
           "type": "json",
@@ -391,7 +381,7 @@
     {
       "datasource": {
         "type": "yesoreyeram-infinity-datasource",
-        "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+        "uid": "${datasource}"
       },
       "description": "Labels are key<>value pairs. “Total unique label value pairs” is the count of unique labels in the selected data source. The word “unique” emphasizes that if the same label (e.g., “env=dev”) is applied to every time series in your system, it would still only increase your count of “total unique label values pairs” by one. ",
       "fieldConfig": {
@@ -435,7 +425,7 @@
         {
           "datasource": {
             "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+            "uid": "${datasource}"
           },
           "refId": "A",
           "type": "json",
@@ -471,7 +461,7 @@
     {
       "datasource": {
         "type": "yesoreyeram-infinity-datasource",
-        "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+        "uid": "${datasource}"
       },
       "description": "This table returns a list of the highest cardinality metrics in the selected data source. The cardinality of a metric is the number of time series associated with that metric, where each time series is defined as a unique combination of key-value label pairs. \n\nWhen looking to reduce the number of active series in your data source, you can start by inspecting individual metrics with high cardinality (i.e. that have lots of active time series associated with them), since that single metric contributes a large fraction of the series that make up your total series count. ",
       "fieldConfig": {
@@ -502,7 +492,7 @@
                 "value": [
                   {
                     "title": "View detailed cardinality dashboard for metric: ${__data.fields.Metric}",
-                    "url": "d/cardinality-management-metrics-detail/?var-metric=${__data.fields.Metric}&${tenant:queryparam}&${filter:queryparam}"
+                    "url": "d/cardinality-management-metrics-detail/?var-metric=${__data.fields.Metric}&${datasource:queryparam}&${tenant:queryparam}&${filter:queryparam}"
                   }
                 ]
               },
@@ -569,7 +559,7 @@
         {
           "datasource": {
             "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+            "uid": "${datasource}"
           },
           "refId": "A",
           "type": "json",
@@ -618,7 +608,7 @@
     {
       "datasource": {
         "type": "yesoreyeram-infinity-datasource",
-        "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+        "uid": "${datasource}"
       },
       "description": "This table returns a list of the label keys with the highest number of values. \n\nUse this table to identify labels that are storing dimensions with high cardinality (many different label values), such as user IDs, email addresses, or other unbounded sets of values.\n\nWe advise being careful in choosing labels such that they have a finite set of values, since every unique combination of key-value label pairs creates a new time series and therefore can dramatically increase the number of time series in your system. ",
       "fieldConfig": {
@@ -649,7 +639,7 @@
                 "value": [
                   {
                     "title": "View detailed cardinality dashboard for label: ${__data.fields.Label}",
-                    "url": "d/cardinality-management-label-detail/?var-label=${__data.fields.Label}&${tenant:tenant}&${filter:queryparam}"
+                    "url": "d/cardinality-management-label-detail/?var-label=${__data.fields.Label}&${datasource:queryparam}&${tenant:tenant}&${filter:queryparam}"
                   }
                 ]
               }
@@ -707,7 +697,7 @@
         {
           "datasource": {
             "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+            "uid": "${datasource}"
           },
           "refId": "A",
           "type": "json",
@@ -755,6 +745,23 @@
   ],
   "templating": {
     "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "Cardinality",
+          "value": "cardinality"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "yesoreyeram-infinity-datasource",
+        "refresh": 60,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
       {
         "current": {
           "selected": false,

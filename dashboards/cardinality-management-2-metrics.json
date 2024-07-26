@@ -1,14 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS",
-      "label": "monit_prom_lts_cardinality_analysis",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "yesoreyeram-infinity-datasource",
-      "pluginName": "JSON API"
-    }
-  ],
   "__elements": [],
   "__requires": [
     {
@@ -119,7 +109,7 @@
     {
       "datasource": {
         "type": "yesoreyeram-infinity-datasource",
-        "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+        "uid": "${datasource}"
       },
       "description": "The number of time series with metric name ${metric}.",
       "fieldConfig": {
@@ -163,7 +153,7 @@
         {
           "datasource": {
             "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+            "uid": "${datasource}"
           },
           "refId": "A",
           "type": "json",
@@ -207,7 +197,7 @@
     {
       "datasource": {
         "type": "yesoreyeram-infinity-datasource",
-        "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+        "uid": "${datasource}"
       },
       "description": "Count all time series with metric name ${metric} and express that as a percentage of the total number of time series in this data source.",
       "fieldConfig": {
@@ -264,7 +254,7 @@
         {
           "datasource": {
             "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+            "uid": "${datasource}"
           },
           "refId": "A",
           "type": "json",
@@ -308,7 +298,7 @@
     {
       "datasource": {
         "type": "yesoreyeram-infinity-datasource",
-        "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+        "uid": "${datasource}"
       },
       "description": "Shows the labels attached to metric ${metric}. You see both the label name and then the number of values for each label name. Label names are sorted by the number of values they have in descending order.",
       "fieldConfig": {
@@ -364,7 +354,7 @@
         {
           "datasource": {
             "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+            "uid": "${datasource}"
           },
           "refId": "A",
           "type": "json",
@@ -401,7 +391,7 @@
     {
       "datasource": {
         "type": "yesoreyeram-infinity-datasource",
-        "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+        "uid": "${datasource}"
       },
       "description": "Shows the labels attached to metric ${metric}. You see both the label name and then the number of values for each label name. Label names are sorted by the number of values they have in descending order.",
       "fieldConfig": {
@@ -507,7 +497,7 @@
         {
           "datasource": {
             "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+            "uid": "${datasource}"
           },
           "refId": "A",
           "type": "json",
@@ -539,7 +529,7 @@
         {
           "datasource": {
             "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+            "uid": "${datasource}"
           },
           "refId": "B",
           "type": "json",
@@ -591,6 +581,24 @@
       {
         "current": {
           "selected": false,
+          "text": "Cardinality",
+          "value": "cardinality"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "yesoreyeram-infinity-datasource",
+        "refresh": 60,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+
+      {
+        "current": {
+          "selected": false,
           "text": "monitoring",
           "value": "monitoring"
         },
@@ -602,101 +610,11 @@
         "options": [
           {
             "selected": true,
-            "text": "monitoring",
-            "value": "monitoring"
-          },
-          {
-            "selected": false,
-            "text": "wininfra",
-            "value": "wininfra"
-          },
-          {
-            "selected": false,
-            "text": "lxpunk",
-            "value": "lxpunk"
-          },
-          {
-            "selected": false,
-            "text": "pa4lang",
-            "value": "pa4lang"
-          },
-          {
-            "selected": false,
-            "text": "cmsdbs",
-            "value": "cmsdbs"
-          },
-          {
-            "selected": false,
-            "text": "jeedy",
-            "value": "jeedy"
-          },
-          {
-            "selected": false,
-            "text": "jeedy_ais",
-            "value": "jeedy_ais"
-          },
-          {
-            "selected": false,
-            "text": "jeedy_eam",
-            "value": "jeedy_eam"
-          },
-          {
-            "selected": false,
-            "text": "alice_ci_cluster",
-            "value": "alice_ci_cluster"
-          },
-          {
-            "selected": false,
-            "text": "vmtest",
-            "value": "vmtest"
-          },
-          {
-            "selected": false,
-            "text": "ceph",
-            "value": "ceph"
-          },
-          {
-            "selected": false,
-            "text": "harry",
-            "value": "harry"
-          },
-          {
-            "selected": false,
-            "text": "eos",
-            "value": "eos"
-          },
-          {
-            "selected": false,
-            "text": "atlasruciok8s",
-            "value": "atlasruciok8s"
-          },
-          {
-            "selected": false,
-            "text": "openshift",
-            "value": "openshift"
-          },
-          {
-            "selected": false,
-            "text": "rcs-sis-ts",
-            "value": "rcs-sis-ts"
-          },
-          {
-            "selected": false,
-            "text": "authzsvc",
-            "value": "authzsvc"
-          },
-          {
-            "selected": false,
-            "text": "netstat",
-            "value": "netstat"
-          },
-          {
-            "selected": false,
-            "text": "lpwan",
-            "value": "lpwan"
+            "text": "tenant",
+            "value": "anonymous"
           }
         ],
-        "query": "monitoring,wininfra,lxpunk,pa4lang,cmsdbs,jeedy,jeedy_ais,jeedy_eam,alice_ci_cluster,vmtest,ceph,harry,eos,atlasruciok8s,openshift,rcs-sis-ts,authzsvc,netstat,lpwan",
+        "query": "anonymous",
         "skipUrlSync": false,
         "type": "custom"
       },
@@ -704,7 +622,7 @@
         "current": {},
         "datasource": {
           "type": "yesoreyeram-infinity-datasource",
-          "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+          "uid": "${datasource}"
         },
         "definition": "$.labels[0].cardinality[*].label_value",
         "hide": 0,
@@ -750,7 +668,7 @@
         "current": {},
         "datasource": {
           "type": "yesoreyeram-infinity-datasource",
-          "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+          "uid": "${datasource}"
         },
         "definition": "$.cardinality[*].label_name",
         "hide": 0,
