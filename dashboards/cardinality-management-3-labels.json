@@ -5,7 +5,7 @@
       "label": "monit_prom_lts_cardinality_analysis",
       "description": "",
       "type": "datasource",
-      "pluginId": "marcusolsson-json-datasource",
+      "pluginId": "yesoreyeram-infinity-datasource",
       "pluginName": "JSON API"
     }
   ],
@@ -19,7 +19,7 @@
     },
     {
       "type": "datasource",
-      "id": "marcusolsson-json-datasource",
+      "id": "yesoreyeram-infinity-datasource",
       "name": "JSON API",
       "version": "1.3.6"
     },
@@ -114,7 +114,7 @@
     },
     {
       "datasource": {
-        "type": "marcusolsson-json-datasource",
+        "type": "yesoreyeram-infinity-datasource",
         "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
       },
       "fieldConfig": {
@@ -167,7 +167,7 @@
         {
           "cacheDurationSeconds": 0,
           "datasource": {
-            "type": "marcusolsson-json-datasource",
+            "type": "yesoreyeram-infinity-datasource",
             "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
           },
           "fields": [
@@ -211,7 +211,7 @@
     },
     {
       "datasource": {
-        "type": "marcusolsson-json-datasource",
+        "type": "yesoreyeram-infinity-datasource",
         "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
       },
       "fieldConfig": {
@@ -277,7 +277,7 @@
         {
           "cacheDurationSeconds": 300,
           "datasource": {
-            "type": "marcusolsson-json-datasource",
+            "type": "yesoreyeram-infinity-datasource",
             "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
           },
           "fields": [
@@ -322,7 +322,7 @@
     },
     {
       "datasource": {
-        "type": "marcusolsson-json-datasource",
+        "type": "yesoreyeram-infinity-datasource",
         "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
       },
       "description": "For each value of label ${label}, shows you the number of time series that have that label value applied. Click to show drilldown link.",
@@ -375,7 +375,7 @@
         {
           "cacheDurationSeconds": 300,
           "datasource": {
-            "type": "marcusolsson-json-datasource",
+            "type": "yesoreyeram-infinity-datasource",
             "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
           },
           "fields": [
@@ -433,7 +433,7 @@
     },
     {
       "datasource": {
-        "type": "marcusolsson-json-datasource",
+        "type": "yesoreyeram-infinity-datasource",
         "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
       },
       "description": "Highest cardinality metrics with ${label} = ${labelValues}.",
@@ -515,7 +515,7 @@
         {
           "cacheDurationSeconds": 300,
           "datasource": {
-            "type": "marcusolsson-json-datasource",
+            "type": "yesoreyeram-infinity-datasource",
             "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
           },
           "fields": [
@@ -687,7 +687,7 @@
       {
         "current": {},
         "datasource": {
-          "type": "marcusolsson-json-datasource",
+          "type": "yesoreyeram-infinity-datasource",
           "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
         },
         "definition": "$.cardinality[*].label_name",
@@ -723,7 +723,7 @@
       {
         "current": {},
         "datasource": {
-          "type": "marcusolsson-json-datasource",
+          "type": "yesoreyeram-infinity-datasource",
           "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
         },
         "definition": "$.labels[*].cardinality[*].label_value",
