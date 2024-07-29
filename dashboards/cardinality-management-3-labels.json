@@ -1,53 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "datasource",
-      "label": "monit_prom_lts_cardinality_analysis",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "yesoreyeram-infinity-datasource",
-      "pluginName": "JSON API"
-    }
-  ],
-  "__elements": [],
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "8.5.21"
-    },
-    {
-      "type": "datasource",
-      "id": "yesoreyeram-infinity-datasource",
-      "name": "JSON API",
-      "version": "1.3.6"
-    },
-    {
-      "type": "panel",
-      "id": "marcusolsson-treemap-panel",
-      "name": "Treemap",
-      "version": "2.0.1"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "table",
-      "name": "Table",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "text",
-      "name": "Text",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -165,33 +116,40 @@
       "pluginVersion": "8.5.21",
       "targets": [
         {
-          "cacheDurationSeconds": 0,
           "datasource": {
             "type": "yesoreyeram-infinity-datasource",
             "uid": "${datasource}"
           },
-          "fields": [
-            {
-              "jsonPath": "$.labels[*].label_values_count",
-              "type": "number"
-            }
-          ],
-          "headers": [
-            [
-              "X-Scope-OrgID",
-              "${tenant}"
-            ]
-          ],
-          "method": "GET",
-          "params": [
-            [
-              "label_names[]",
-              "${label}"
-            ]
-          ],
-          "queryParams": "",
           "refId": "A",
-          "urlPath": "/label_values"
+          "type": "json",
+          "source": "url",
+          "format": "table",
+          "url": "/label_values",
+          "url_options": {
+            "method": "GET",
+            "data": "",
+            "params": [
+              {
+                "key": "label_names[]",
+                "value": "${label}"
+              },
+              {
+                "key": "limit",
+                "value": "1"
+              }
+            ],
+    		    "headers": [
+              {
+                "key": "X-Scope-OrgID",
+                "value": "${tenant}"
+              }
+            ]
+          },
+          "root_selector": "labels.label_values_count",
+          "columns": [],
+          "filters": [],
+          "global_query_id": "selector",
+          "parser": "backend"
         }
       ],
       "title": "Total values for label: $label",
@@ -275,36 +233,42 @@
       "pluginVersion": "8.5.21",
       "targets": [
         {
-          "cacheDurationSeconds": 300,
           "datasource": {
             "type": "yesoreyeram-infinity-datasource",
             "uid": "${datasource}"
           },
-          "fields": [
-            {
-              "jsonPath": "$.labels[0].series_count/$.series_count_total",
-              "language": "jsonata",
-              "type": "number"
-            }
-          ],
-          "headers": [
-            [
-              "X-Scope-OrgID",
-              "${tenant}"
-            ]
-          ],
-          "method": "GET",
-          "params": [
-            [
-              "label_names[]",
-              "${label}"
-            ]
-          ],
-          "queryParams": "",
           "refId": "A",
-          "urlPath": "/label_values"
+          "type": "json",
+          "source": "url",
+          "format": "table",
+          "url": "/label_values",
+          "url_options": {
+            "method": "GET",
+            "data": "",
+            "params": [
+              {
+                "key": "label_names[]",
+                "value": "${label}"
+              },
+              {
+                "key": "limit",
+                "value": "1"
+              }
+            ],
+    		    "headers": [
+              {
+                "key": "X-Scope-OrgID",
+                "value": "${tenant}"
+              }
+            ]
+          },
+          "root_selector": "$.labels[0].series_count/$.series_count_total",
+          "columns": [],
+          "filters": [],
+          "global_query_id": "selector",
+          "parser": "backend"
         }
-      ],
+      ],      
       "title": "Percentage of total series with label: $label",
       "transformations": [
         {
@@ -373,40 +337,42 @@
       "pluginVersion": "8.0.6",
       "targets": [
         {
-          "cacheDurationSeconds": 300,
           "datasource": {
             "type": "yesoreyeram-infinity-datasource",
             "uid": "${datasource}"
           },
-          "fields": [
-            {
-              "jsonPath": "$.labels[*].cardinality[*].label_value",
-              "type": "string"
-            },
-            {
-              "jsonPath": "$.labels[*].cardinality[*].series_count",
-              "language": "jsonpath",
-              "name": ""
-            }
-          ],
-          "headers": [
-            [
-              "X-Scope-OrgID",
-              "${tenant}"
-            ]
-          ],
-          "method": "GET",
-          "params": [
-            [
-              "label_names[]",
-              "${label}"
-            ]
-          ],
-          "queryParams": "",
           "refId": "A",
-          "urlPath": "/label_values"
+          "type": "json",
+          "source": "url",
+          "format": "table",
+          "url": "/label_values",
+          "url_options": {
+            "method": "GET",
+            "data": "",
+            "params": [
+              {
+                "key": "label_names[]",
+                "value": "${label}"
+              },
+              {
+                "key": "limit",
+                "value": "1"
+              }
+            ],
+    		    "headers": [
+              {
+                "key": "X-Scope-OrgID",
+                "value": "${tenant}"
+              }
+            ]
+          },
+          "root_selector": "$.labels.cardinality.{\"label_value\":label_value, \"series_count\":series_count}\n",
+          "columns": [],
+          "filters": [],
+          "global_query_id": "selector",
+          "parser": "backend"
         }
-      ],
+      ],  
       "title": "Top distribution of series per label value",
       "transformations": [],
       "type": "marcusolsson-treemap-panel"
@@ -513,45 +479,46 @@
       "repeatDirection": "h",
       "targets": [
         {
-          "cacheDurationSeconds": 300,
           "datasource": {
             "type": "yesoreyeram-infinity-datasource",
             "uid": "${datasource}"
           },
-          "fields": [
-            {
-              "jsonPath": "$.labels[*].cardinality[*].label_value",
-              "name": "Metric"
-            },
-            {
-              "jsonPath": "$.labels[*].cardinality[*].series_count",
-              "language": "jsonpath",
-              "name": "Count of series"
-            }
-          ],
-          "headers": [
-            [
-              "X-Scope-OrgID",
-              "${tenant}"
-            ]
-          ],
-          "hide": false,
-          "method": "GET",
-          "params": [
-            [
-              "label_names[]",
-              "__name__"
+          "refId": "A",
+          "type": "json",
+          "source": "url",
+          "format": "table",
+          "url": "/label_values",
+          "url_options": {
+            "method": "GET",
+            "data": "",
+            "params": [
+              {
+                "key": "label_names[]",
+                "value": "${label}"
+              },
+              {
+                "key": "selector",
+                "value": "{$label='${labelValues}'}"
+              },
+              {
+                "key": "limit",
+                "value": "1"
+              }
             ],
-            [
-              "selector",
-              "{$label='${labelValues}'}"
+    		    "headers": [
+              {
+                "key": "X-Scope-OrgID",
+                "value": "${tenant}"
+              }
             ]
-          ],
-          "queryParams": "",
-          "refId": "B",
-          "urlPath": "/label_values"
+          },
+          "root_selector": "labels.cardinality.{\"Metric\":label_value, \"Count of series\":series_count}\n",
+          "columns": [],
+          "filters": [],
+          "global_query_id": "selector",
+          "parser": "backend"
         }
-      ],
+      ],            
       "title": "${label} = ${labelValues}",
       "type": "table"
     }
