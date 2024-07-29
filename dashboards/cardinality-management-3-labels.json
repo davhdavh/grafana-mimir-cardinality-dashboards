@@ -174,7 +174,7 @@
               },
               {
                 "key": "limit",
-                "value": "1"
+                "value": "0"
               }
             ],
     		    "headers": [
@@ -184,7 +184,7 @@
               }
             ]
           },
-          "root_selector": "labels.label_values_count",
+          "root_selector": "labels[0].label_values_count",
           "columns": [],
           "filters": [],
           "global_query_id": "selector",
@@ -192,18 +192,7 @@
         }
       ],
       "title": "Total values for label: $label",
-      "transformations": [
-        {
-          "id": "filterFieldsByName",
-          "options": {
-            "include": {
-              "names": [
-                "label_values_count"
-              ]
-            }
-          }
-        }
-      ],
+      "transformations": [],
       "type": "stat"
     },
     {
@@ -236,7 +225,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "result"
+              "options": "A"
             },
             "properties": [
               {
@@ -291,7 +280,7 @@
               },
               {
                 "key": "limit",
-                "value": "1"
+                "value": "0"
               }
             ],
     		    "headers": [
@@ -301,7 +290,7 @@
               }
             ]
           },
-          "root_selector": "$.labels[0].series_count/$.series_count_total",
+          "root_selector": "labels[0].series_count/$.series_count_total",
           "columns": [],
           "filters": [],
           "global_query_id": "selector",
@@ -309,18 +298,7 @@
         }
       ],      
       "title": "Percentage of total series with label: $label",
-      "transformations": [
-        {
-          "id": "filterFieldsByName",
-          "options": {
-            "include": {
-              "names": [
-                "result"
-              ]
-            }
-          }
-        }
-      ],
+      "transformations": [],
       "type": "stat"
     },
     {
@@ -395,7 +373,7 @@
               },
               {
                 "key": "limit",
-                "value": "1"
+                "value": "100"
               }
             ],
     		    "headers": [
@@ -405,7 +383,7 @@
               }
             ]
           },
-          "root_selector": "$.labels.cardinality.{\"label_value\":label_value, \"series_count\":series_count}\n",
+          "root_selector": "labels.cardinality.{\"label_value\":label_value, \"series_count\":series_count}\n",
           "columns": [],
           "filters": [],
           "global_query_id": "selector",
@@ -533,7 +511,7 @@
             "params": [
               {
                 "key": "label_names[]",
-                "value": "${label}"
+                "value": "__name__"
               },
               {
                 "key": "selector",
@@ -541,7 +519,7 @@
               },
               {
                 "key": "limit",
-                "value": "1"
+                "value": "20"
               }
             ],
     		    "headers": [
