@@ -1,4 +1,37 @@
 {
+  "__elements": [],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "8.5.21"
+    },
+    {
+      "type": "datasource",
+      "id": "yesoreyeram-infinity-datasource",
+      "name": "JSON API",
+      "version": "1.3.6"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "text",
+      "name": "Text",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -24,7 +57,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 16,
+  "id": null,
+  "iteration": 1696927517664,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -49,13 +83,13 @@
         "content": "#### If you have metrics with a high number of series\n- Could you drop some labels on that metric to reduce its [cardinality](https://grafana.com/blog/2022/02/15/what-are-cardinality-spikes-and-why-do-they-matter/)? \n- Could you [find unused metrics](https://grafana.com/docs/grafana-cloud/metrics-control-usage/control-prometheus-metrics-usage/usage-analysis-mimirtool/) and [drop entire metrics](https://grafana.com/docs/grafana-cloud/metrics-control-usage/control-prometheus-metrics-usage/usage-reduction/)? \n- Could you replace a large number of underlying series with a single rolled up value?",
         "mode": "markdown"
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "8.5.21",
       "title": "Tips",
       "type": "text"
     },
     {
       "datasource": {
-        "type": "marcusolsson-json-datasource",
+        "type": "yesoreyeram-infinity-datasource",
         "uid": "${datasource}"
       },
       "description": "The total number of metrics in the selected data source. Prometheus uses the reserved label \"\\_\\_name\\_\\_\" to store a metric’s name. This means that the total metric count is equivalent to the number of values associated with the label key \"\\_\\_name\\_\\_.\"”",
@@ -85,7 +119,6 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
-        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -93,44 +126,46 @@
           "fields": "",
           "values": false
         },
-        "showPercentChange": false,
         "text": {},
-        "textMode": "auto",
-        "wideLayout": true
+        "textMode": "auto"
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "8.5.21",
       "targets": [
         {
-          "cacheDurationSeconds": 0,
           "datasource": {
-            "type": "marcusolsson-json-datasource",
+            "type": "yesoreyeram-infinity-datasource",
             "uid": "${datasource}"
           },
-          "fields": [
-            {
-              "jsonPath": "$.labels[0].label_values_count"
-            }
-          ],
-          "headers": [
-            [
-              "X-Scope-OrgID",
-              "${tenant}"
-            ]
-          ],
-          "method": "GET",
-          "params": [
-            [
-              "label_names[]",
-              "__name__"
-            ],
-            [
-              "limit",
-              "0"
-            ]
-          ],
-          "queryParams": "",
           "refId": "A",
-          "urlPath": "/label_values"
+          "type": "json",
+          "source": "url",
+          "format": "table",
+          "url": "/label_values",
+          "url_options": {
+            "method": "GET",
+            "data": "",
+            "params": [
+              {
+                "key": "label_names[]",
+                "value": "__name__"
+              },
+              {
+                "key": "limit",
+                "value": "0"
+              }
+            ],
+    		"headers": [
+              {
+                "key": "X-Scope-OrgID",
+                "value": "${tenant}"
+              }
+            ]
+          },
+          "root_selector": "labels[0].label_values_count",
+          "columns": [],
+          "filters": [],
+          "global_query_id": "selector",
+          "parser": "backend"
         }
       ],
       "title": "Total metrics",
@@ -157,13 +192,13 @@
         "content": "#### If you have labels with a high number of unique values\n- Could you drop this label entirely?\n- Could you decrease its number of values?\n- If you still need the information in this label, could you store it in a log file? ",
         "mode": "markdown"
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "8.5.21",
       "title": "Tips",
       "type": "text"
     },
     {
       "datasource": {
-        "type": "marcusolsson-json-datasource",
+        "type": "yesoreyeram-infinity-datasource",
         "uid": "${datasource}"
       },
       "description": "Labels are key<>value pairs. “Total label names” is the count of unique label keys in the selected data source. For example, if your system had “key1=valueA”, “key1=valueB”, “key2=valueC,” “key3=valueD”, you would have 3 label names in your system: “key1”, “key2,” and “key3.”",
@@ -191,7 +226,7 @@
                 "value": [
                   {
                     "title": "View detailed cardinality dashboard for metric: ${__data.fields.Metric}",
-                    "url": "d/cardinality-management-metrics-detail/?var-metric=${__data.fields.Metric}&${datasource:queryparam}&${filter:queryparam}"
+                    "url": "d/cardinality-management-metrics-detail/?var-metric=${__data.fields.Metric}&${datasource:queryparam}&${tenant:queryparam}&${filter:queryparam}"
                   }
                 ]
               }
@@ -211,7 +246,6 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
-        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -219,40 +253,42 @@
           "fields": "",
           "values": false
         },
-        "showPercentChange": false,
         "text": {},
-        "textMode": "auto",
-        "wideLayout": true
+        "textMode": "auto"
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "8.5.21",
       "targets": [
         {
-          "cacheDurationSeconds": 0,
           "datasource": {
-            "type": "marcusolsson-json-datasource",
+            "type": "yesoreyeram-infinity-datasource",
             "uid": "${datasource}"
           },
-          "fields": [
-            {
-              "jsonPath": "$.label_names_count"
-            }
-          ],
-          "headers": [
-            [
-              "X-Scope-OrgID",
-              "${tenant}"
-            ]
-          ],
-          "method": "GET",
-          "params": [
-            [
-              "limit",
-              "0"
-            ]
-          ],
-          "queryParams": "",
           "refId": "A",
-          "urlPath": "/label_names"
+          "type": "json",
+          "source": "url",
+          "format": "table",
+          "url": "/label_names",
+          "url_options": {
+            "method": "GET",
+            "data": "",
+            "params": [
+              {
+                "key": "limit",
+                "value": "0"
+              }
+            ],
+    		"headers": [
+              {
+                "key": "X-Scope-OrgID",
+                "value": "${tenant}"
+              }
+            ]
+          },
+          "root_selector": "label_names_count",
+          "columns": [],
+          "filters": [],
+          "global_query_id": "selector",
+          "parser": "backend"
         }
       ],
       "title": "Total label names",
@@ -260,7 +296,7 @@
     },
     {
       "datasource": {
-        "type": "marcusolsson-json-datasource",
+        "type": "yesoreyeram-infinity-datasource",
         "uid": "${datasource}"
       },
       "description": "The total number of active time series in the selected data source. A time series is a unique combination of a metric name and key-value label pairs. For example, “events_total{env=dev}” and “events_total{env=prod}” are two distinct time series, both of which belong to the same parent metric, “events_total.”",
@@ -290,7 +326,6 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
-        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -298,44 +333,46 @@
           "fields": "",
           "values": false
         },
-        "showPercentChange": false,
         "text": {},
-        "textMode": "auto",
-        "wideLayout": true
+        "textMode": "auto"
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "8.5.21",
       "targets": [
         {
-          "cacheDurationSeconds": 0,
           "datasource": {
-            "type": "marcusolsson-json-datasource",
+            "type": "yesoreyeram-infinity-datasource",
             "uid": "${datasource}"
           },
-          "fields": [
-            {
-              "jsonPath": "$.series_count_total"
-            }
-          ],
-          "headers": [
-            [
-              "X-Scope-OrgID",
-              "${tenant}"
-            ]
-          ],
-          "method": "GET",
-          "params": [
-            [
-              "label_names[]",
-              "__name__"
-            ],
-            [
-              "limit",
-              "0"
-            ]
-          ],
-          "queryParams": "",
           "refId": "A",
-          "urlPath": "/label_values"
+          "type": "json",
+          "source": "url",
+          "format": "table",
+          "url": "/label_values",
+          "url_options": {
+            "method": "GET",
+            "data": "",
+            "params": [
+              {
+                "key": "label_names[]",
+                "value": "__name__"
+              },
+              {
+                "key": "limit",
+                "value": "0"
+              }
+            ],
+    		"headers": [
+              {
+                "key": "X-Scope-OrgID",
+                "value": "${tenant}"
+              }
+            ]
+          },
+          "root_selector": "labels[0].series_count",
+          "columns": [],
+          "filters": [],
+          "global_query_id": "selector",
+          "parser": "backend"
         }
       ],
       "title": "Total series",
@@ -343,7 +380,7 @@
     },
     {
       "datasource": {
-        "type": "marcusolsson-json-datasource",
+        "type": "yesoreyeram-infinity-datasource",
         "uid": "${datasource}"
       },
       "description": "Labels are key<>value pairs. “Total unique label value pairs” is the count of unique labels in the selected data source. The word “unique” emphasizes that if the same label (e.g., “env=dev”) is applied to every time series in your system, it would still only increase your count of “total unique label values pairs” by one. ",
@@ -373,7 +410,6 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
-        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -381,40 +417,42 @@
           "fields": "",
           "values": false
         },
-        "showPercentChange": false,
         "text": {},
-        "textMode": "auto",
-        "wideLayout": true
+        "textMode": "auto"
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "8.5.21",
       "targets": [
         {
-          "cacheDurationSeconds": 0,
           "datasource": {
-            "type": "marcusolsson-json-datasource",
+            "type": "yesoreyeram-infinity-datasource",
             "uid": "${datasource}"
           },
-          "fields": [
-            {
-              "jsonPath": "$.label_values_count_total"
-            }
-          ],
-          "headers": [
-            [
-              "X-Scope-OrgID",
-              "${tenant}"
-            ]
-          ],
-          "method": "GET",
-          "params": [
-            [
-              "limit",
-              "0"
-            ]
-          ],
-          "queryParams": "",
           "refId": "A",
-          "urlPath": "/label_names"
+          "type": "json",
+          "source": "url",
+          "format": "table",
+          "url": "/label_names",
+          "url_options": {
+            "method": "GET",
+            "data": "",
+            "params": [
+              {
+                "key": "limit",
+                "value": "0"
+              }
+            ],
+    		"headers": [
+              {
+                "key": "X-Scope-OrgID",
+                "value": "${tenant}"
+              }
+            ]
+          },
+          "root_selector": "label_values_count_total",
+          "columns": [],
+          "filters": [],
+          "global_query_id": "selector",
+          "parser": "backend"
         }
       ],
       "title": "Total unique label value pairs",
@@ -422,7 +460,7 @@
     },
     {
       "datasource": {
-        "type": "marcusolsson-json-datasource",
+        "type": "yesoreyeram-infinity-datasource",
         "uid": "${datasource}"
       },
       "description": "This table returns a list of the highest cardinality metrics in the selected data source. The cardinality of a metric is the number of time series associated with that metric, where each time series is defined as a unique combination of key-value label pairs. \n\nWhen looking to reduce the number of active series in your data source, you can start by inspecting individual metrics with high cardinality (i.e. that have lots of active time series associated with them), since that single metric contributes a large fraction of the series that make up your total series count. ",
@@ -433,9 +471,7 @@
           },
           "custom": {
             "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
+            "displayMode": "auto",
             "inspect": false
           },
           "mappings": [],
@@ -456,7 +492,7 @@
                 "value": [
                   {
                     "title": "View detailed cardinality dashboard for metric: ${__data.fields.Metric}",
-                    "url": "d/cardinality-management-metrics-detail/?var-metric=${__data.fields.Metric}&${tenant:queryparam}&${filter:queryparam}"
+                    "url": "d/cardinality-management-metrics-detail/?var-metric=${__data.fields.Metric}&${datasource:queryparam}&${tenant:queryparam}&${filter:queryparam}"
                   }
                 ]
               },
@@ -518,53 +554,43 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "8.5.21",
       "targets": [
         {
-          "cacheDurationSeconds": 0,
           "datasource": {
-            "type": "marcusolsson-json-datasource",
+            "type": "yesoreyeram-infinity-datasource",
             "uid": "${datasource}"
           },
-          "fields": [
-            {
-              "jsonPath": "$.labels[0].cardinality[*].label_value",
-              "name": "label_value",
-              "type": "string"
-            },
-            {
-              "jsonPath": "$.labels[0].cardinality[*].series_count",
-              "language": "jsonpath",
-              "name": "series_count",
-              "type": "number"
-            },
-            {
-              "jsonPath": "$map(labels[0].cardinality.series_count, function($r) { $r / $$.series_count_total})\n",
-              "language": "jsonata",
-              "name": "percentage",
-              "type": "number"
-            }
-          ],
-          "headers": [
-            [
-              "X-Scope-OrgID",
-              "${tenant}"
-            ]
-          ],
-          "method": "GET",
-          "params": [
-            [
-              "label_names[]",
-              "__name__"
-            ],
-            [
-              "limit",
-              "100"
-            ]
-          ],
-          "queryParams": "",
           "refId": "A",
-          "urlPath": "/label_values"
+          "type": "json",
+          "source": "url",
+          "format": "table",
+          "url": "/label_values",
+          "url_options": {
+            "method": "GET",
+            "data": "",
+            "params": [
+              {
+                "key": "label_names[]",
+                "value": "__name__"
+              },
+              {
+                "key": "limit",
+                "value": "100"
+              }
+            ],
+    		"headers": [
+              {
+                "key": "X-Scope-OrgID",
+                "value": "${tenant}"
+              }
+            ]
+          },
+          "root_selector": "labels[0].cardinality.{\n    \"label_value\": label_value,\n    \"series_count\": series_count,\n    \"percentage\": series_count / $$.series_count_total\n}",
+          "columns": [],
+          "filters": [],
+          "global_query_id": "selector",
+          "parser": "backend"
         }
       ],
       "title": "Highest cardinality metrics",
@@ -581,7 +607,7 @@
     },
     {
       "datasource": {
-        "type": "marcusolsson-json-datasource",
+        "type": "yesoreyeram-infinity-datasource",
         "uid": "${datasource}"
       },
       "description": "This table returns a list of the label keys with the highest number of values. \n\nUse this table to identify labels that are storing dimensions with high cardinality (many different label values), such as user IDs, email addresses, or other unbounded sets of values.\n\nWe advise being careful in choosing labels such that they have a finite set of values, since every unique combination of key-value label pairs creates a new time series and therefore can dramatically increase the number of time series in your system. ",
@@ -592,9 +618,7 @@
           },
           "custom": {
             "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
+            "displayMode": "auto",
             "inspect": false
           },
           "mappings": [],
@@ -615,7 +639,7 @@
                 "value": [
                   {
                     "title": "View detailed cardinality dashboard for label: ${__data.fields.Label}",
-                    "url": "d/cardinality-management-label-detail/?var-label=${__data.fields.Label}&${tenant:tenant}&${filter:queryparam}"
+                    "url": "d/cardinality-management-label-detail/?var-label=${__data.fields.Label}&${datasource:queryparam}&${tenant:tenant}&${filter:queryparam}"
                   }
                 ]
               }
@@ -642,10 +666,6 @@
               {
                 "id": "unit",
                 "value": "percentunit"
-              },
-              {
-                "id": "displayName",
-                "value": "% of total"
               }
             ]
           }
@@ -672,60 +692,53 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "8.5.21",
       "targets": [
         {
-          "cacheDurationSeconds": 0,
           "datasource": {
-            "type": "marcusolsson-json-datasource",
+            "type": "yesoreyeram-infinity-datasource",
             "uid": "${datasource}"
           },
-          "fields": [
-            {
-              "jsonPath": "$.cardinality[*].label_name",
-              "language": "jsonpath",
-              "name": "Label"
-            },
-            {
-              "jsonPath": "$.cardinality[*].label_values_count",
-              "language": "jsonpath",
-              "name": "label_values_count"
-            },
-            {
-              "jsonPath": "$map(cardinality.label_values_count,function($v)\n{ \n    $v/($$.label_values_count_total)\n})",
-              "language": "jsonata",
-              "name": "percentage"
-            }
-          ],
-          "headers": [
-            [
-              "X-Scope-OrgID",
-              "${tenant}"
-            ]
-          ],
-          "method": "GET",
-          "params": [
-            [
-              "label_names[]",
-              "__name__"
-            ],
-            [
-              "limit",
-              "100"
-            ]
-          ],
-          "queryParams": "",
           "refId": "A",
-          "urlPath": "/label_names"
+          "type": "json",
+          "source": "url",
+          "format": "table",
+          "url": "/label_names",
+          "url_options": {
+            "method": "GET",
+            "data": "",
+            "params": [
+              {
+                "key": "label_names[]",
+                "value": "__name__"
+              },
+              {
+                "key": "limit",
+                "value": "100"
+              }
+            ],
+    		"headers": [
+              {
+                "key": "X-Scope-OrgID",
+                "value": "${tenant}"
+              }
+            ]
+          },
+          "root_selector": "$.cardinality.{\n \"Label\": label_name,\n \"label_values_count\": label_values_count,\n \"percentage\": label_values_count / $$.label_values_count_total\n}",
+          "columns": [],
+          "filters": [],
+          "global_query_id": "selector",
+          "parser": "backend"
         }
       ],
       "title": "Top labels by value count",
       "type": "table"
     }
   ],
-  "refresh": "",
+  "refresh": "10s",
   "revision": 1,
-  "schemaVersion": 39,
+  "schemaVersion": 36,
+  "style": "dark",
   "tags": [
     "cardinality-management",
     "grafanacloud"
@@ -735,16 +748,15 @@
       {
         "current": {
           "selected": false,
-          "text": "marcusolsson-json-datasource",
-          "value": "edsxcube1vthcf"
+          "text": "Cardinality",
+          "value": "cardinality"
         },
         "hide": 0,
         "includeAll": false,
         "multi": false,
         "name": "datasource",
         "options": [],
-        "query": "marcusolsson-json-datasource",
-        "queryValue": "",
+        "query": "yesoreyeram-infinity-datasource",
         "refresh": 60,
         "regex": "",
         "skipUrlSync": false,
@@ -752,8 +764,8 @@
       },
       {
         "current": {
-          "selected": true,
-          "text": "anonymous",
+          "selected": false,
+          "text": "tenant",
           "value": "anonymous"
         },
         "description": "Tenants for mimir",
@@ -799,6 +811,6 @@
   "timezone": "",
   "title": "Cardinality management - 1 - overview",
   "uid": "cardinality-management",
-  "version": 1,
+  "version": 6,
   "weekStart": ""
 }

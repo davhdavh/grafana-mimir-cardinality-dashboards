@@ -330,7 +330,7 @@
                 "value": [
                   {
                     "title": "",
-                    "url": "d/cardinality-management-label-detail/?var-label=${__data.fields.Label}&${tenant:tenant}&${filter:queryparam}"
+                    "url": "d/cardinality-management-label-detail/?var-label=${__data.fields.Label}&${tenant:queryparam}&${datasource:queryparam}&${filter:queryparam}"
                   }
                 ]
               }
@@ -370,7 +370,7 @@
                 "value": "{__name__='${metric}'}"
               }
             ],
-    		"headers": [
+    		    "headers": [
               {
                 "key": "X-Scope-OrgID",
                 "value": "${tenant}"
@@ -435,7 +435,7 @@
                 "value": [
                   {
                     "title": "",
-                    "url": "d/cardinality-management-label-detail/?var-label=${__data.fields.label_name}&${tenant:tenant}&${filter:queryparam}"
+                    "url": "d/cardinality-management-label-detail/?var-label=${__data.fields.label_name}&${tenant:queryparam}&${datasource:queryparam}&${filter:queryparam}"
                   }
                 ]
               }
@@ -535,15 +535,11 @@
           "type": "json",
           "source": "url",
           "format": "table",
-          "url": "/label_names",
+          "url": "/label_values?$__combineValues(label_names[]=,,&,${values:csv})",
           "url_options": {
             "method": "GET",
             "data": "",
             "params": [
-              {
-                "key": "label_names[]",
-                "value": "${values}"
-              }
             ],
     		"headers": [
               {
@@ -595,7 +591,6 @@
         "skipUrlSync": false,
         "type": "datasource"
       },
-
       {
         "current": {
           "selected": false,
@@ -619,44 +614,56 @@
         "type": "custom"
       },
       {
-        "current": {},
+        "allValue": "",
+        "current": {
+          "selected": true,
+          "text": "pod",
+          "value": "pod"
+        },
         "datasource": {
           "type": "yesoreyeram-infinity-datasource",
           "uid": "${datasource}"
         },
-        "definition": "$.labels[0].cardinality[*].label_value",
+        "definition": "Cardinality- (infinity) json",
         "hide": 0,
-        "includeAll": false,
-        "label": "Metric",
+        "includeAll": true,
         "multi": false,
         "name": "metric",
         "options": [],
         "query": {
-          "cacheDurationSeconds": 0,
-          "fields": [
-            {
-              "jsonPath": "$.labels[0].cardinality[*].label_value"
+          "infinityQuery": {
+            "columns": [],
+            "filters": [],
+            "format": "table",
+            "parser": "backend",
+            "refId": "variable",
+            "root_selector": "labels[0].cardinality.label_value",
+            "source": "url",
+            "type": "json",
+            "url": "/label_values",
+            "url_options": {
+              "data": "",
+              "headers": [
+                {
+                  "key": "X-Scope-OrgID",
+                  "value": "${tenant}"
+                }
+              ],
+              "method": "GET",
+              "params": [
+                {
+                  "key": "label_names[]",
+                  "value": "__name__"
+                },
+                {
+                  "key": "limit",
+                  "value": "100"
+                }
+              ]
             }
-          ],
-          "headers": [
-            [
-              "X-Scope-OrgID",
-              "${tenant}"
-            ]
-          ],
-          "method": "GET",
-          "params": [
-            [
-              "label_names[]",
-              "__name__"
-            ],
-            [
-              "limit",
-              "500"
-            ]
-          ],
-          "queryParams": "",
-          "urlPath": "/label_values"
+          },
+          "query": "",
+          "queryType": "infinity"
         },
         "refresh": 1,
         "regex": "",
@@ -665,40 +672,58 @@
         "type": "query"
       },
       {
-        "current": {},
+        "allValue": "",
+        "current": {
+          "selected": true,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "yesoreyeram-infinity-datasource",
           "uid": "${datasource}"
         },
-        "definition": "$.cardinality[*].label_name",
+        "definition": "Cardinality- (infinity) json",
         "hide": 0,
-        "includeAll": false,
-        "label": "Labels",
+        "includeAll": true,
         "multi": false,
         "name": "values",
-        "options": [],
+        "options": [
+          {
+            "selected": true,
+            "text": "All",
+            "value": "$__all"
+          }
+        ],
         "query": {
-          "cacheDurationSeconds": 0,
-          "fields": [
-            {
-              "jsonPath": "$.cardinality[*].label_name"
+          "infinityQuery": {
+            "columns": [],
+            "filters": [],
+            "format": "table",
+            "parser": "backend",
+            "refId": "variable",
+            "root_selector": "cardinality.label_name",
+            "source": "url",
+            "type": "json",
+            "url": "/label_names",
+            "url_options": {
+              "data": "",
+              "headers": [
+                {
+                  "key": "X-Scope-OrgID",
+                  "value": "${tenant}"
+                }
+              ],
+              "method": "GET",
+              "params": [
+                {
+                  "key": "selector",
+                  "value": "{__name__='${metric}'}"
+                }
+              ]
             }
-          ],
-          "headers": [
-            [
-              "X-Scope-OrgID",
-              "${tenant}"
-            ]
-          ],
-          "method": "GET",
-          "params": [
-            [
-              "selector",
-              "{__name__='${metric}'}"
-            ]
-          ],
-          "queryParams": "",
-          "urlPath": "/label_names"
+          },
+          "query": "",
+          "queryType": "infinity"
         },
         "refresh": 1,
         "regex": "",
