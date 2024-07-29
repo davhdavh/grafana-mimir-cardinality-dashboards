@@ -1,7 +1,7 @@
 {
   "__inputs": [
     {
-      "name": "DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS",
+      "name": "datasource",
       "label": "monit_prom_lts_cardinality_analysis",
       "description": "",
       "type": "datasource",
@@ -115,7 +115,7 @@
     {
       "datasource": {
         "type": "yesoreyeram-infinity-datasource",
-        "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -168,7 +168,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+            "uid": "${datasource}"
           },
           "fields": [
             {
@@ -212,7 +212,7 @@
     {
       "datasource": {
         "type": "yesoreyeram-infinity-datasource",
-        "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -278,7 +278,7 @@
           "cacheDurationSeconds": 300,
           "datasource": {
             "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+            "uid": "${datasource}"
           },
           "fields": [
             {
@@ -323,7 +323,7 @@
     {
       "datasource": {
         "type": "yesoreyeram-infinity-datasource",
-        "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+        "uid": "${datasource}"
       },
       "description": "For each value of label ${label}, shows you the number of time series that have that label value applied. Click to show drilldown link.",
       "fieldConfig": {
@@ -334,7 +334,7 @@
           "links": [
             {
               "title": "View overview cardinality dashboard scoped to ${label}: ${__data.fields[0]}",
-              "url": "d/cardinality-management/?${tenant:queryparam}&${filter:queryparam}&var-filter=${label}%7C%3D%7C${__data.fields[0]}"
+              "url": "d/cardinality-management/?${tenant:queryparam}&${filter:queryparam}&${datasource:queryparam}&var-filter=${label}%7C%3D%7C${__data.fields[0]}"
             }
           ],
           "mappings": [],
@@ -376,7 +376,7 @@
           "cacheDurationSeconds": 300,
           "datasource": {
             "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+            "uid": "${datasource}"
           },
           "fields": [
             {
@@ -434,7 +434,7 @@
     {
       "datasource": {
         "type": "yesoreyeram-infinity-datasource",
-        "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+        "uid": "${datasource}"
       },
       "description": "Highest cardinality metrics with ${label} = ${labelValues}.",
       "fieldConfig": {
@@ -474,7 +474,7 @@
                 "value": [
                   {
                     "title": "View detailed cardinality dashboard for metric: ${__data.fields.Metric}",
-                    "url": "d/cardinality-management-metrics-detail/?var-metric=${__data.fields.Metric}&${tenant:queryparam}&${filter:queryparam}&var-filter=${label}%7C%3D%7C${labelValues}"
+                    "url": "d/cardinality-management-metrics-detail/?var-metric=${__data.fields.Metric}&${tenant:queryparam}&${datasource:queryparam}&${filter:queryparam}&var-filter=${label}%7C%3D%7C${labelValues}"
                   }
                 ]
               }
@@ -516,7 +516,7 @@
           "cacheDurationSeconds": 300,
           "datasource": {
             "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+            "uid": "${datasource}"
           },
           "fields": [
             {
@@ -567,11 +567,27 @@
     "list": [
       {
         "current": {
-          "selected": true,
-          "text": "ceph",
-          "value": "ceph"
+          "selected": false,
+          "text": "Cardinality",
+          "value": "cardinality"
         },
-        "description": "Datasource adapter to provide metrics cardinality",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "yesoreyeram-infinity-datasource",
+        "refresh": 60,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "monitoring",
+          "value": "monitoring"
+        },
         "hide": 0,
         "includeAll": false,
         "label": "Tenant",
@@ -579,140 +595,59 @@
         "name": "tenant",
         "options": [
           {
-            "selected": false,
-            "text": "monitoring",
-            "value": "monitoring"
-          },
-          {
-            "selected": false,
-            "text": "wininfra",
-            "value": "wininfra"
-          },
-          {
-            "selected": false,
-            "text": "lxpunk",
-            "value": "lxpunk"
-          },
-          {
-            "selected": false,
-            "text": "pa4lang",
-            "value": "pa4lang"
-          },
-          {
-            "selected": false,
-            "text": "cmsdbs",
-            "value": "cmsdbs"
-          },
-          {
-            "selected": false,
-            "text": "jeedy",
-            "value": "jeedy"
-          },
-          {
-            "selected": false,
-            "text": "jeedy_ais",
-            "value": "jeedy_ais"
-          },
-          {
-            "selected": false,
-            "text": "jeedy_eam",
-            "value": "jeedy_eam"
-          },
-          {
-            "selected": false,
-            "text": "alice_ci_cluster",
-            "value": "alice_ci_cluster"
-          },
-          {
-            "selected": false,
-            "text": "vmtest",
-            "value": "vmtest"
-          },
-          {
             "selected": true,
-            "text": "ceph",
-            "value": "ceph"
-          },
-          {
-            "selected": false,
-            "text": "harry",
-            "value": "harry"
-          },
-          {
-            "selected": false,
-            "text": "eos",
-            "value": "eos"
-          },
-          {
-            "selected": false,
-            "text": "atlasruciok8s",
-            "value": "atlasruciok8s"
-          },
-          {
-            "selected": false,
-            "text": "openshift",
-            "value": "openshift"
-          },
-          {
-            "selected": false,
-            "text": "rcs-sis-ts",
-            "value": "rcs-sis-ts"
-          },
-          {
-            "selected": false,
-            "text": "authzsvc",
-            "value": "authzsvc"
-          },
-          {
-            "selected": false,
-            "text": "netstat",
-            "value": "netstat"
-          },
-          {
-            "selected": false,
-            "text": "lpwan",
-            "value": "lpwan"
-          },
-          {
-            "selected": false,
-            "text": "monitoring_otlp",
-            "value": "monitoring_otlp"
+            "text": "tenant",
+            "value": "anonymous"
           }
         ],
-        "query": "monitoring,wininfra,lxpunk,pa4lang,cmsdbs,jeedy,jeedy_ais,jeedy_eam,alice_ci_cluster,vmtest,ceph,harry,eos,atlasruciok8s,openshift,rcs-sis-ts,authzsvc,netstat,lpwan,monitoring_otlp",
-        "queryValue": "monitoring_otlp",
+        "query": "anonymous",
         "skipUrlSync": false,
         "type": "custom"
       },
       {
+
         "current": {},
         "datasource": {
           "type": "yesoreyeram-infinity-datasource",
-          "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+          "uid": "${datasource}"
         },
-        "definition": "$.cardinality[*].label_name",
+        "definition": "Cardinality- (infinity) json",
         "hide": 0,
         "includeAll": false,
-        "label": "Label",
         "multi": false,
+        "label": "Label",
         "name": "label",
         "options": [],
         "query": {
-          "cacheDurationSeconds": 300,
-          "fields": [
-            {
-              "jsonPath": "$.cardinality[*].label_name"
+          "infinityQuery": {
+            "columns": [],
+            "filters": [],
+            "format": "table",
+            "parser": "backend",
+            "refId": "variable",
+            "root_selector": "cardinality.label_name",
+            "source": "url",
+            "type": "json",
+            "url": "/label_names",
+            "url_options": {
+              "data": "",
+              "headers": [
+                {
+                  "key": "X-Scope-OrgID",
+                  "value": "${tenant}"
+                }
+              ],
+              "method": "GET",
+              "params": [
+                {
+                  "key": "limit",
+                  "value": "100"
+                }
+              ]
             }
-          ],
-          "headers": [
-            [
-              "X-Scope-OrgID",
-              "${tenant}"
-            ]
-          ],
-          "method": "GET",
-          "queryParams": "",
-          "urlPath": "/label_names"
+          },
+          "query": "",
+          "queryType": "infinity"
         },
         "refresh": 1,
         "regex": "",
@@ -721,40 +656,56 @@
         "type": "query"
       },
       {
-        "current": {},
+        "allValue": "",
+        "current": {
+          "selected": true,
+          "text": "pod",
+          "value": "pod"
+        },
         "datasource": {
           "type": "yesoreyeram-infinity-datasource",
-          "uid": "${DS_MONIT_PROM_LTS_CARDINALITY_ANALYSIS}"
+          "uid": "${datasource}"
         },
-        "definition": "$.labels[*].cardinality[*].label_value",
+        "definition": "Cardinality- (infinity) json",
         "hide": 2,
         "includeAll": true,
-        "label": "Label",
-        "multi": true,
+        "multi": false,
         "name": "labelValues",
         "options": [],
         "query": {
-          "cacheDurationSeconds": 300,
-          "fields": [
-            {
-              "jsonPath": "$.labels[*].cardinality[*].label_value"
+          "infinityQuery": {
+            "columns": [],
+            "filters": [],
+            "format": "table",
+            "parser": "backend",
+            "refId": "variable",
+            "root_selector": "labels.cardinality.label_value",
+            "source": "url",
+            "type": "json",
+            "url": "/label_values",
+            "url_options": {
+              "data": "",
+              "headers": [
+                {
+                  "key": "X-Scope-OrgID",
+                  "value": "${tenant}"
+                }
+              ],
+              "method": "GET",
+              "params": [
+                {
+                  "key": "label_names[]",
+                  "value": "${label}"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
             }
-          ],
-          "headers": [
-            [
-              "X-Scope-OrgID",
-              "${tenant}"
-            ]
-          ],
-          "method": "GET",
-          "params": [
-            [
-              "label_names[]",
-              "${label}"
-            ]
-          ],
-          "queryParams": "",
-          "urlPath": "/label_values"
+          },
+          "query": "",
+          "queryType": "infinity"
         },
         "refresh": 1,
         "regex": "",

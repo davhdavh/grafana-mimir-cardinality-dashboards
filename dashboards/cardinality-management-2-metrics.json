@@ -540,15 +540,19 @@
             "method": "GET",
             "data": "",
             "params": [
+              {
+                "key": "limit",
+                "value": "3"
+              }
             ],
-    		"headers": [
+    		    "headers": [
               {
                 "key": "X-Scope-OrgID",
                 "value": "${tenant}"
               }
             ]
           },
-          "root_selector": "labels.{\n\"label_name\": label_name,\n\"values\": \"testdata\"\n}\n",
+          "root_selector": "labels.{\n\"label_name\": label_name,\n\"values\": $join(cardinality.label_value, \", \")\n}\n",
           "columns": [],
           "filters": [],
           "global_query_id": "selector",
@@ -625,7 +629,7 @@
           "uid": "${datasource}"
         },
         "definition": "Cardinality- (infinity) json",
-        "hide": 0,
+        "hide": 2,
         "includeAll": true,
         "multi": false,
         "name": "metric",
